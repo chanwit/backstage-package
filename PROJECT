@@ -1,0 +1,7 @@
+domain: spotify.com
+repo: backstage-package
+resources:
+- group: backstage
+  kind: Application
+  version: v1alpha1
+version: "2"

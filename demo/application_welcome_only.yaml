@@ -1,0 +1,39 @@
+apiVersion: backstage.spotify.com/v1alpha1
+kind: Application
+spec:
+  templateRepository:
+    url: https://github.com/spotify/backstage
+    revision:
+      branch: master
+  containerImageRepositoryPrefix: chanwit/my-welcome-
+  plugins:
+    - name: MyWelcomePlugin
+      package: "@chanwit/plugin-my-welcome"
+      version: "^0.1.1"
+    - name: LighthousePlugin
+      package: "@backstage/plugin-lighthouse"
+      version: "^0.1.1-alpha.4"
+    - name: TechRadar
+      package: "@backstage/plugin-tech-radar"
+      version: "^0.1.1-alpha.4"
+
+  # TODO support backends: {}
+  deploymentTargets:
+  - kubernetes
+
+  rootComponent:
+    path: packages/app/src/components/Root/Root.tsx
+    imports: |
+      import HomeIcon from '@material-ui/icons/Home';
+      import AccountCircle from '@material-ui/icons/AccountCircle';
+    sidebar: |
+      <Sidebar>
+        <SidebarLogo />
+        <SidebarSpacer />
+        <SidebarDivider />
+        <SidebarItem icon={HomeIcon} to="/" text="Home" />
+        <SidebarItem icon={AccountCircle} to="/login" text="Login" />
+        <SidebarDivider />
+        <SidebarSpace />
+        <ToggleThemeSidebarItem />
+      </Sidebar>
